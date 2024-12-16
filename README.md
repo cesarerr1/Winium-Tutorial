@@ -1,4 +1,4 @@
-# Ejecución de pruebas en FarMax
+# Ejecución de pruebas
 
 ## Versiones utilizadas
 
