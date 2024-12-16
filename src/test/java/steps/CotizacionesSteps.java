@@ -30,7 +30,6 @@ public class CotizacionesSteps {
 
     @Y("escribo el cliente prospecto {string}")
     public void escriboElClienteProspecto(String arg0) {
-        funcionesAuxiliares.esperarElemento(winiumDriver,cotizaciones.textProducto,15);
         funcionesAuxiliares.atajoTeclas("TAB");
         funcionesAuxiliares.atajoTeclas("TAB");
         funcionesAuxiliares.escribirTexto(arg0);

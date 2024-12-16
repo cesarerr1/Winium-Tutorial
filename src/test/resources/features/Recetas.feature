@@ -6,16 +6,21 @@ Característica: Recetas
   @agregarDoctor
   Esquema del escenario: : Registrar cirujano
     Dado que doy click en recetas
-    Y doy click en agregar o editar doctor
-    Y escribo la cedula "03430867935345"
-    Y elijo "Cirujano"
-    Y escribo "Alfredo" "Vazquez" "Dominguez"
-    Y escribo los moviles "33459862" "23957856"
-    Y registro "5648"
+    Y doy click en "Agregar/Editar Doctor"
+    Y escribo la cedula "<cedula>"
+    Y elijo "<ocupacion>"
+    Y escribo "<nombre>" "<apellidoPaterno>" "<apellidoMaterno>"
+    Y escribo los moviles "<movil1>" "<movil2>"
+    Y registro "<registro>"
     Y sin comentarios
-    Y escribo la "<direccion>" "<calle>" "<ciudad>" "<estado>" "<codigoPostal>" "<telefono>"
-    Y doy click en aceptar en la ventana de doctores
+    Y escribo la "<direccion>" "<colonia>" "<ciudad>" "<estado>" "<codigoPostal>" "<telefono>"
+    Y doy click en "Aceptar"
+    Y doy click en "Aceptar"
+    Y doy click en "Aceptar"
+    Y cierro la ventana de Captura de Receta Médica
+    Y doy click en "Aceptar"
+    Y doy click en "Aceptar"
 
     Ejemplos:
-      | direccion | calle | ciudad | estado | codigoPostal | telefono |
-      |principal #20     |fresno |xalapa  |veracruz|91194         |228961462 |
+      | cedula | ocupacion | nombre | apellidoPaterno | apellidoMaterno | movil1 | movil2 | registro | direccion | colonia | ciudad | estado | codigoPostal | telefono | 
+      | 2516793485 | Cirujano | Alfredo | Vazquez | Dominguez | 33459862 | 23957856 | 5648 | principal #20 | El Olmo | xalapa | veracruz | 91194 | 2285783564 | 

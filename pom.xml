@@ -61,6 +61,46 @@
             <version>2.29.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.9</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>actualizar-feature</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.example.ActualizarFeature</mainClass>
+                            <arguments>
+                                <argument>src/test/resources/data/Venta.csv</argument>
+                                <argument>src/test/resources/features/Cotizaciones.feature</argument>
+                                <argument>src/test/resources/data/Usuarios.csv</argument>
+                                <argument>src/test/resources/features/Login.feature</argument>
+                                <argument>src/test/resources/data/Recetas.csv</argument>
+                                <argument>src/test/resources/features/Recetas.feature</argument>
+                                <argument>src/test/resources/data/Venta.csv</argument>
+                                <argument>src/test/resources/features/Venta.feature</argument>
+                                <argument>src/test/resources/data/Usuarios.csv</argument>
+                                <argument>src/test/resources/features/CorteCaja.feature</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -7,6 +7,8 @@ import utils.FuncionesAuxiliares;
 import utils.ReporteAllure;
 import utils.WiniumDriverManager;
 
+import java.io.IOException;
+
 public class DonativoSteps {
 
     private FuncionesAuxiliares funcionesAuxiliares = new FuncionesAuxiliares();
@@ -22,9 +24,10 @@ public class DonativoSteps {
     }
 
     @Y("digito {string} en pago en efectivo")
-    public void digitoEnPagoEnEfectivo(String arg0) {
+    public void digitoEnPagoEnEfectivo(String arg0) throws IOException {
         funcionesAuxiliares.esperarElemento(winiumDriver,donativo.efectivo,15);
         funcionesAuxiliares.enviarDatos(winiumDriver,donativo.efectivo,arg0,15);
+        funcionesAuxiliares.actualizarCaja(arg0);
         allure.capturaAllure(winiumDriver);
     }
 
@@ -33,5 +36,6 @@ public class DonativoSteps {
         funcionesAuxiliares.atajoTeclas("F11");
         Thread.sleep(4);
         allure.capturaAllure(winiumDriver);
+        funcionesAuxiliares.cerrarApp();
     }
 }

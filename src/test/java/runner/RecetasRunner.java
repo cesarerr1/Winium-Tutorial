@@ -7,11 +7,11 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    features = "src/test/resources/features/Donativo.feature",
+    features = "src/test/resources/features/Recetas.feature",
     glue = {"steps"},
     monochrome = true,
     plugin = {"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
     tags = ""
 )
-public class DonativoRunner extends AllureJunit4 {
+public class RecetasRunner extends AllureJunit4 {
 }

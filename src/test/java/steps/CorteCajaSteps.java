@@ -8,6 +8,8 @@ import utils.FuncionesAuxiliares;
 import utils.ReporteAllure;
 import utils.WiniumDriverManager;
 
+import java.io.IOException;
+
 
 public class CorteCajaSteps {
 
@@ -52,7 +54,7 @@ public class CorteCajaSteps {
         funcionesAuxiliares.click(winiumDriver,corteCaja.btnAceptarConfirmacion,15);
     }
     @Dado("doy click en procesar")
-    public void doy_click_en_procesar() throws InterruptedException {
+    public void doy_click_en_procesar() throws InterruptedException, IOException {
         funcionesAuxiliares.esperarElemento(winiumDriver,corteCaja.btnProcesar,15);
         allure.capturaAllure(winiumDriver);
         funcionesAuxiliares.click(winiumDriver,corteCaja.btnProcesar,15);
@@ -60,9 +62,8 @@ public class CorteCajaSteps {
         funcionesAuxiliares.click(winiumDriver,corteCaja.btnAceptarConfirmacion,15);
         if(funcionesAuxiliares.esperarElemento(winiumDriver,corteCaja.btnAceptarConfirmacion,15)){
             funcionesAuxiliares.click(winiumDriver,corteCaja.btnAceptarConfirmacion,15);
-            //Thread.sleep(5000);
-            //funcionesAuxiliares.click(winiumDriver,corteCaja.btnAceptarConfirmacion,15);
-            funcionesAuxiliares.enviarDatos(winiumDriver,corteCaja.editTextDiferencia,"83",15);
+            float caja = funcionesAuxiliares.recuperarCaja();
+            funcionesAuxiliares.enviarDatos(winiumDriver,corteCaja.editTextDiferencia,String.valueOf(caja),15);
             funcionesAuxiliares.click(winiumDriver,corteCaja.btnContinuar,15);
             funcionesAuxiliares.click(winiumDriver,corteCaja.btnAceptarConfirmacion,15);
         }
@@ -87,9 +88,10 @@ public class CorteCajaSteps {
 
     }
     @Dado("se muestra el login")
-    public void se_muestra_el_login() {
+    public void se_muestra_el_login() throws IOException {
         try {
             Thread.sleep(15000);
+            funcionesAuxiliares.modificarCaja(0.0F);
             allure.capturaAllure(winiumDriver);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

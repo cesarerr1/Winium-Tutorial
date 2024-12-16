@@ -7,12 +7,11 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features",
-        glue = {"steps"},
-        monochrome = true,
-        plugin = {"pretty","io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
-        tags = "@recepciones"
+    features = "src/test/resources/features/Recepciones.feature",
+    glue = {"steps"},
+    monochrome = true,
+    plugin = {"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
+    tags = ""
 )
-
-public class RecepcionesRunner extends AllureJunit4{
+public class RecepcionesRunner extends AllureJunit4 {
 }

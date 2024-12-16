@@ -11,6 +11,8 @@ import utils.FuncionesAuxiliares;
 import utils.ReporteAllure;
 import utils.WiniumDriverManager;
 
+import java.io.IOException;
+
 public class VentaSteps {
 
     private FuncionesAuxiliares funcionesAuxiliares = new FuncionesAuxiliares();
@@ -22,7 +24,8 @@ public class VentaSteps {
     private WiniumDriver winiumDriver = WiniumDriverManager.runDriver();
 
     @Dado("que busco el producto {string}")
-    public void queBuscoElProducto(String arg0) {
+    public void queBuscoElProducto(String arg0) throws InterruptedException {
+        Thread.sleep(10000);
         funcionesAuxiliares.esperarElemento(winiumDriver,paginaPrincipal.SKU,15);
         funcionesAuxiliares.enviarDatos(winiumDriver,paginaPrincipal.SKU,arg0,15);
         allure.capturaAllure(winiumDriver);
@@ -39,8 +42,7 @@ public class VentaSteps {
     }
 
     @Y("presiono {string}")
-    public void presiono(String arg0) {
-        funcionesAuxiliares.esperarElemento(winiumDriver,venta.producto,15);
+    public void presiono(String arg0){
         funcionesAuxiliares.atajoTeclas(arg0);
     }
 
@@ -66,9 +68,10 @@ public class VentaSteps {
 
 
     @Y("escribo {string} de efectivo")
-    public void escriboDeEfectivo(String arg0) {
+    public void escriboDeEfectivo(String arg0) throws IOException {
         funcionesAuxiliares.esperarElemento(winiumDriver,venta.editTextEfectivo,15);
         funcionesAuxiliares.enviarDatos(winiumDriver,venta.editTextEfectivo,arg0,15);
+        funcionesAuxiliares.actualizarCaja(arg0);
         allure.capturaAllure(winiumDriver);
     }
 
@@ -82,6 +85,7 @@ public class VentaSteps {
         try {
             Thread.sleep(4000);
             allure.capturaAllure(winiumDriver);
+            funcionesAuxiliares.cerrarApp();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -122,6 +126,7 @@ public class VentaSteps {
         funcionesAuxiliares.click(winiumDriver,demandaArticulos.btnAceptarConfirmacion,15);
     }
 
+
     @Y("presiono {string} para pagar por vales")
     public void presionoParaPagarPorVales(String arg0) {
         funcionesAuxiliares.atajoTeclas(arg0);
@@ -147,5 +152,35 @@ public class VentaSteps {
         Thread.sleep(2000);
         allure.capturaAllure(winiumDriver);
         funcionesAuxiliares.atajoTeclas("ENTER");
+    }
+
+    @Y("agrego el producto con SKU {string}")
+    public void agregoElProductoConSKU(String arg0) throws InterruptedException {
+        funcionesAuxiliares.esperarElemento(winiumDriver,paginaPrincipal.SKU,15);
+        funcionesAuxiliares.enviarDatos(winiumDriver,paginaPrincipal.SKU,arg0,15);
+        allure.capturaAllure(winiumDriver);
+        funcionesAuxiliares.atajoTeclas("ENTER");
+        Thread.sleep(15000);
+    }
+
+    @Y("doy click en aceptar cancelación")
+    public void doyClickEnAceptarCancelación() {
+        funcionesAuxiliares.esperarElemento(winiumDriver,venta.btnAceptarNotificacion,15);
+        allure.capturaAllure(winiumDriver);
+        funcionesAuxiliares.click(winiumDriver,venta.btnAceptarNotificacion,15);
+    }
+
+    @Y("selecciono el motivo {string}")
+    public void seleccionoElMotivo(String arg0) {
+        funcionesAuxiliares.esperarElemento(winiumDriver,venta.motivoCancelacion,15);
+        funcionesAuxiliares.atajoTeclas("TAB");
+        funcionesAuxiliares.escribirTexto(arg0);
+        allure.capturaAllure(winiumDriver);
+    }
+
+    @Y("se muestra el producto {string}")
+    public void seMuestraElProducto(String arg0) {
+        funcionesAuxiliares.esperarElemento(winiumDriver,venta.producto(arg0),30);
+        allure.capturaAllure(winiumDriver);
     }
 }

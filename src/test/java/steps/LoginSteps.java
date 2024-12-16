@@ -37,8 +37,27 @@ public class LoginSteps {
 
     @Y("doy click en Aceptar")
     public void doy_click_en_Aceptar(){
+        allure.capturaAllure(winiumDriver);
         funcionesAuxiliares.click(winiumDriver,login.btnLogin,10);
-        funcionesAuxiliares.click(winiumDriver,paginaPrincipal.btnContinuarCajaInicial,20);
+
+
+    }
+
+    @Y("se muestran los detalles de la caja")
+    public void seMuestranLosDetallesDeLaCaja() {
+        funcionesAuxiliares.esperarElemento(winiumDriver,paginaPrincipal.btnContinuarCajaInicial,20);
         allure.capturaAllure(winiumDriver);
     }
+
+    @Y("doy click en continuar")
+    public void doyClickEnContinuar() {
+        funcionesAuxiliares.click(winiumDriver,paginaPrincipal.btnContinuarCajaInicial,20);
+    }
+
+    @Y("te atiende {string}")
+    public void teAtiende(String arg0) {
+        funcionesAuxiliares.esperarElemento(winiumDriver,paginaPrincipal.teAtiende(arg0),15);
+        allure.capturaAllure(winiumDriver);
+    }
+
 }

@@ -9,8 +9,15 @@ import org.openqa.selenium.winium.WiniumDriver;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FuncionesAuxiliares {
 
@@ -117,4 +124,73 @@ public class FuncionesAuxiliares {
         }
         return -1;
     }
+
+    public float recuperarCaja() throws IOException {
+        String contenido = new String(Files.readAllBytes(Paths.get("src/test/resources/data/Caja.txt")));
+        String regex = "-?\\d+\\.\\d+";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(contenido);
+        if (matcher.find()) {
+            return Float.parseFloat(matcher.group());
+        }
+        throw new IllegalArgumentException("No se encontró ningún número flotante en el archivo.");
+    }
+
+    public void modificarCaja(Float caja) throws IOException {
+        String contenidoNuevo = caja.toString();
+        Files.write(Paths.get("src/test/resources/data/Caja.txt"), contenidoNuevo.getBytes());
+    }
+
+    public void actualizarCaja(String dinero) throws  IOException{
+        Float caja = recuperarCaja();
+        caja = caja + Float.parseFloat(dinero);
+        String contenidoNuevo = caja.toString();
+        Files.write(Paths.get("src/test/resources/data/Caja.txt"), contenidoNuevo.getBytes());
+    }
+
+    public void cerrarApp(){
+        String nombreProceso = "PrimoPDF";
+        boolean encontrado = true;
+
+        while (true) {
+            try {
+                Thread.sleep(5000);
+                Process proceso = Runtime.getRuntime().exec("tasklist");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
+                String linea;
+                encontrado = false;
+                while ((linea = reader.readLine()) != null) {
+                    if (linea.contains(nombreProceso)) {
+                        encontrado = true;
+                        break;
+                    }
+                }
+                proceso.waitFor();
+                if (encontrado) {
+                    System.out.println("El proceso '" + nombreProceso + "' está en ejecución.");
+                    detenerApp();
+                } else {
+                    System.out.println("El proceso '" + nombreProceso + "' no se está ejecutando.");
+                    break;
+                }
+
+
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void detenerApp() {
+        try {
+            String comando = "powershell Get-Process PrimoPDF | Stop-Process -Force";
+            Process proceso = Runtime.getRuntime().exec(comando);
+            proceso.waitFor();
+            System.out.println("PrimoPDF cerrado exitosamente.");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("Error al intentar cerrar PrimoPDF.");
+        }
+    }
+
 }

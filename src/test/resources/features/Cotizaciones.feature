@@ -5,16 +5,19 @@ Característica: Cotizaciones
 
 
   @registrarCotizacion
-  Escenario: Registrar una cotización
+  Esquema del escenario: Registrar una cotización
     Dado que uso el atajo de teclas "ALT" + "C"
-    Y escribo las credenciales de RF "00030120" "ZZ*12345"
-    Y doy click en aceptar autorización
+    Y escribo las credenciales de RF "<usuarioRF>" "<passwordRF>"
+    Y doy click en "Aceptar"
     Y doy click en cancelar monedero
-    Y escribo el SKU "7501834000035" del producto
+    Y escribo el SKU "<SKU>" del producto
+    Y se muestra el producto "<producto>"
     Y escribo el cliente prospecto "Alfredo"
     Y presiono la tecla "F10"
-    Y doy click en aceptar confirmación
-    Y doy click en cancelar impresión
+    Y doy click en "Aceptar"
+    Y doy click en "Aceptar"
+    Y doy click en "Cancelar"
 
-    
-
+    Ejemplos:
+      | SKU | producto | usuarioRF | passwordRF | 
+      | 7501834000103 | ESTROPAJO NAT C/TOALLA Y ESPONJA RED BSA 0103 | 00030120 | ZZ*12345 | 

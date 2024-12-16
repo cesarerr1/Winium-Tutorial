@@ -121,4 +121,11 @@ public class RecetasSteps {
         funcionesAuxiliares.click(winiumDriver,recetas.btnABCDoctores,15);
     }
 
+    @Y("cierro la ventana de Captura de Receta Médica")
+    public void cierroLaVentanaDeCapturaDeRecetaMédica() throws InterruptedException {
+        Thread.sleep(2000);
+        funcionesAuxiliares.esperarElemento(winiumDriver,recetas.btnCerrarRecetaMedica,15);
+        allure.capturaAllure(winiumDriver);
+        funcionesAuxiliares.click(winiumDriver,recetas.btnCerrarRecetaMedica,15);
+    }
 }
